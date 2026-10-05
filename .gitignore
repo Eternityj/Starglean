@@ -1,0 +1,37 @@
+# IDE and local machine state (not application source).
+*.iml
+/.idea/
+/local.properties
+.DS_Store
+
+# Regenerated Android/Kotlin outputs.
+/.gradle/
+/.kotlin/
+/build/
+/app/build/
+/captures/
+.externalNativeBuild/
+.cxx/
+/app/google-services.json
+
+# Local website staging; published source stays in website/src/.
+/website/dist/
+/website/node_modules/
+
+# Reviewed APKs and test evidence stay local; keep their usage guide visible.
+/delivery/*
+!/delivery/README.md
+
+# Private signing material must never enter source control or an APK delivery.
+*.jks
+*.keystore
+*.p12
+*signing*.properties
+local-device.properties
+
+# Nearby-backend credentials and local tool state are never source artifacts.
+.env
+.env.*
+!.env.example
+/supabase/.temp/
+/supabase/.branches/

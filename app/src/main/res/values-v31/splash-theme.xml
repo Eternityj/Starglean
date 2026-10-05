@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Starglean" parent="Theme.Starglean.Base">
+        <item name="android:windowSplashScreenBackground">#050B18</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_starglean</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#050B18</item>
+    </style>
+</resources>
