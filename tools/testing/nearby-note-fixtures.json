@@ -1,0 +1,76 @@
+{
+  "purpose": "Five fictional notes for the user-requested nearby shake test. Not yet uploaded.",
+  "status": "awaiting_test_location_and_backend_access",
+  "notes": [
+    {
+      "title": "模拟测试 1/5 · 傍晚的风",
+      "body": "【模拟测试内容，不对应真实用户】\n\n今天绕了一点路回家。路边的树叶被风吹得沙沙响，我忽然发现自己已经很久没有抬头看过天空。\n\n没有发生什么特别的事，但这一小段慢下来的时间，让平常的一天变得值得记住。",
+      "paper_style": "warm_white",
+      "font_style": "clear",
+      "weather_snapshot": {
+        "kind": "unknown",
+        "daylight": "night",
+        "temperature_c": null,
+        "captured_at": null,
+        "is_demo": false
+      },
+      "media_manifest": []
+    },
+    {
+      "title": "模拟测试 2/5 · 一杯没喝完的咖啡",
+      "body": "【模拟测试内容，不对应真实用户】\n\n原本打算用一杯咖啡的时间读完几页书，结果一直在看窗外。有人推着自行车经过，有只小鸟落在栏杆上又飞走。\n\n咖啡凉了，书只翻了一页。我却觉得这段时间并没有浪费。",
+      "paper_style": "kraft",
+      "font_style": "serif",
+      "weather_snapshot": {
+        "kind": "unknown",
+        "daylight": "night",
+        "temperature_c": null,
+        "captured_at": null,
+        "is_demo": false
+      },
+      "media_manifest": []
+    },
+    {
+      "title": "模拟测试 3/5 · 想说一声谢谢",
+      "body": "【模拟测试内容，不对应真实用户】\n\n今天有人帮我扶住了一扇快要关上的门。我走过去时匆匆说了谢谢，后来却一直记得那个很自然的微笑。\n\n原来让一天变好，有时只需要这样小的一件事。希望读到这段话的你，也能遇到一点温柔。",
+      "paper_style": "warm_white",
+      "font_style": "handwritten",
+      "weather_snapshot": {
+        "kind": "unknown",
+        "daylight": "night",
+        "temperature_c": null,
+        "captured_at": null,
+        "is_demo": false
+      },
+      "media_manifest": []
+    },
+    {
+      "title": "模拟测试 4/5 · 给忙碌的一天留个空白",
+      "body": "【模拟测试内容，不对应真实用户】\n\n待办清单还有几项没有划掉。我本来想再坚持一会儿，最后还是合上了电脑，给自己倒了一杯水。\n\n休息并不需要等到所有事情都完成。今晚先好好睡觉，明天再继续。",
+      "paper_style": "midnight",
+      "font_style": "clear",
+      "weather_snapshot": {
+        "kind": "unknown",
+        "daylight": "night",
+        "temperature_c": null,
+        "captured_at": null,
+        "is_demo": false
+      },
+      "media_manifest": []
+    },
+    {
+      "title": "模拟测试 5/5 · 小小的好消息",
+      "body": "【模拟测试内容，不对应真实用户】\n\n今天终于完成了一件拖了很久的小事。过程没有想象中顺利，但结束的时候，心里像亮起了一颗很小的星。\n\n想把这份轻松留在这里。如果你也正在为某件事情努力，愿你很快等到自己的好消息。",
+      "paper_style": "kraft",
+      "font_style": "serif",
+      "weather_snapshot": {
+        "kind": "unknown",
+        "daylight": "night",
+        "temperature_c": null,
+        "captured_at": null,
+        "is_demo": false
+      },
+      "media_manifest": []
+    }
+  ]
+}
