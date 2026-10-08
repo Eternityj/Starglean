@@ -3,8 +3,8 @@
   "status": "awaiting_test_location_and_backend_access",
   "notes": [
     {
-      "title": "模拟测试 1/5 · 傍晚的风",
-      "body": "【模拟测试内容，不对应真实用户】\n\n今天绕了一点路回家。路边的树叶被风吹得沙沙响，我忽然发现自己已经很久没有抬头看过天空。\n\n没有发生什么特别的事，但这一小段慢下来的时间，让平常的一天变得值得记住。",
+      "title": "Simulated Test 1/5 · The Evening Breeze",
+      "body": "[Fictional test content; not associated with a real user]\n\nI took a small detour on my way home today. The leaves rustled in the breeze, and I suddenly realized how long it had been since I last looked up at the sky.\n\nNothing extraordinary happened, but that brief moment of slowing down made an ordinary day worth remembering.",
       "paper_style": "warm_white",
       "font_style": "clear",
       "weather_snapshot": {
@@ -17,8 +17,8 @@
       "media_manifest": []
     },
     {
-      "title": "模拟测试 2/5 · 一杯没喝完的咖啡",
-      "body": "【模拟测试内容，不对应真实用户】\n\n原本打算用一杯咖啡的时间读完几页书，结果一直在看窗外。有人推着自行车经过，有只小鸟落在栏杆上又飞走。\n\n咖啡凉了，书只翻了一页。我却觉得这段时间并没有浪费。",
+      "title": "Simulated Test 2/5 · An Unfinished Cup of Coffee",
+      "body": "[Fictional test content; not associated with a real user]\n\nI had planned to read a few pages over a cup of coffee, but I kept looking out the window instead. Someone walked past with a bicycle, and a little bird landed on the railing before flying away.\n\nThe coffee went cold, and I turned just one page. Still, the time did not feel wasted.",
       "paper_style": "kraft",
       "font_style": "serif",
       "weather_snapshot": {
@@ -31,8 +31,8 @@
       "media_manifest": []
     },
     {
-      "title": "模拟测试 3/5 · 想说一声谢谢",
-      "body": "【模拟测试内容，不对应真实用户】\n\n今天有人帮我扶住了一扇快要关上的门。我走过去时匆匆说了谢谢，后来却一直记得那个很自然的微笑。\n\n原来让一天变好，有时只需要这样小的一件事。希望读到这段话的你，也能遇到一点温柔。",
+      "title": "Simulated Test 3/5 · A Little Thank You",
+      "body": "[Fictional test content; not associated with a real user]\n\nSomeone held a closing door open for me today. I hurried past with a quick thank you, but their easy smile stayed with me afterward.\n\nSometimes such a small gesture is all it takes to make a day better. I hope you find a little kindness today, too.",
       "paper_style": "warm_white",
       "font_style": "handwritten",
       "weather_snapshot": {
@@ -45,8 +45,8 @@
       "media_manifest": []
     },
     {
-      "title": "模拟测试 4/5 · 给忙碌的一天留个空白",
-      "body": "【模拟测试内容，不对应真实用户】\n\n待办清单还有几项没有划掉。我本来想再坚持一会儿，最后还是合上了电脑，给自己倒了一杯水。\n\n休息并不需要等到所有事情都完成。今晚先好好睡觉，明天再继续。",
+      "title": "Simulated Test 4/5 · A Pause in a Busy Day",
+      "body": "[Fictional test content; not associated with a real user]\n\nThere were still a few unchecked items on my list. I thought about working a little longer, but finally closed my laptop and poured myself a glass of water.\n\nRest does not have to wait until everything is finished. Tonight, I will get some sleep and carry on tomorrow.",
       "paper_style": "midnight",
       "font_style": "clear",
       "weather_snapshot": {
@@ -59,8 +59,8 @@
       "media_manifest": []
     },
     {
-      "title": "模拟测试 5/5 · 小小的好消息",
-      "body": "【模拟测试内容，不对应真实用户】\n\n今天终于完成了一件拖了很久的小事。过程没有想象中顺利，但结束的时候，心里像亮起了一颗很小的星。\n\n想把这份轻松留在这里。如果你也正在为某件事情努力，愿你很快等到自己的好消息。",
+      "title": "Simulated Test 5/5 · A Small Piece of Good News",
+      "body": "[Fictional test content; not associated with a real user]\n\nToday I finally finished a small task I had been putting off for a long time. It was not as smooth as I expected, but when it was done, it felt as though a tiny star had lit up inside me.\n\nI want to leave that sense of relief here. If you are working toward something too, I hope your own good news arrives soon.",
       "paper_style": "kraft",
       "font_style": "serif",
       "weather_snapshot": {
