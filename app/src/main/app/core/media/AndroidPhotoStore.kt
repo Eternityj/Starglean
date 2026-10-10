@@ -3,6 +3,7 @@ package com.starglean.app.core.media
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Matrix
 import android.media.ExifInterface
@@ -208,18 +209,23 @@ class AndroidPhotoStore(context: Context, storageDirectory: File = context.appli
         return Bitmap.createScaledBitmap(source, width, height, true)
     }
 
-    /** JPEG re-encoding intentionally strips source metadata, including EXIF location. */
+    /** Drawing into a fresh SDR bitmap drops source metadata and any attached HDR gainmap. */
     private fun writeJpeg(bitmap: Bitmap, file: File) {
         FileOutputStream(file).use { output ->
-            // JPEG has no alpha. Draw transparent inputs onto a deterministic neutral background.
-            val opaque = if (bitmap.hasAlpha()) Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888).also {
-                android.graphics.Canvas(it).apply { drawColor(Color.WHITE); drawBitmap(bitmap, 0f, 0f, null) }
-            } else bitmap
+            // Never compress the decoded bitmap directly: recent Android versions can retain
+            // HDR gainmap and XMP metadata on it even when its pixels are already opaque.
+            // A fresh standard bitmap keeps only the rendered SDR pixels.
+            val opaque = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
             try {
+                Canvas(opaque).apply {
+                    drawColor(Color.WHITE)
+                    drawBitmap(bitmap, 0f, 0f, null)
+                }
+                opaque.setHasAlpha(false)
                 if (!opaque.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, output)) failImport()
                 output.fd.sync()
             } finally {
-                if (opaque !== bitmap) opaque.recycle()
+                opaque.recycle()
             }
         }
         if (file.length() !in 1..DiaryPhotoRules.MAX_STORED_BYTES) failImport()

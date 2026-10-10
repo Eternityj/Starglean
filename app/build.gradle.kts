@@ -69,8 +69,8 @@ android {
         applicationId = "com.starglean.app"
         minSdk = 26
         targetSdk = 37
-        versionCode = 23
-        versionName = "0.5.4"
+        versionCode = 24
+        versionName = "0.5.5"
         // Both Android Studio and release builds run the real phone experience.
         buildConfigField("boolean", "LOCAL_DEVICE_EDITION", "true")
         buildConfigField("String", "SUPABASE_URL", "\"$cloudUrl\"")

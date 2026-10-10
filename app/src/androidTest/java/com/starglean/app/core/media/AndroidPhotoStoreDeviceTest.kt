@@ -5,9 +5,11 @@ import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Gainmap
 import android.media.ExifInterface
 import android.net.Uri
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.starglean.app.core.draft.WritingDraft
 import com.starglean.app.core.draft.WritingDraftState
@@ -107,6 +109,67 @@ class AndroidPhotoStoreDeviceTest {
                 exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED))
             assertEquals(null, exif.getAttribute(ExifInterface.TAG_GPS_LATITUDE))
             assertEquals(null, exif.getAttribute(ExifInterface.TAG_GPS_LONGITUDE))
+        }
+    }
+
+    @Test @SdkSuppress(minSdkVersion = 34)
+    fun importsGainmapJpegAsSdrWithoutApp1OrGainmap(): Unit = runBlocking {
+        val source = File(sourceRoot, "synthetic-gainmap.jpg")
+        val base = Bitmap.createBitmap(2000, 1500, Bitmap.Config.ARGB_8888).apply {
+            eraseColor(Color.rgb(70, 120, 180))
+        }
+        val gainmapPixels = Bitmap.createBitmap(1000, 750, Bitmap.Config.ARGB_8888).apply {
+            eraseColor(Color.GRAY)
+        }
+        try {
+            base.setGainmap(Gainmap(gainmapPixels).apply {
+                setRatioMin(1f, 1f, 1f)
+                setRatioMax(2f, 2f, 2f)
+                setGamma(1f, 1f, 1f)
+                setEpsilonSdr(0f, 0f, 0f)
+                setEpsilonHdr(0f, 0f, 0f)
+                setDisplayRatioForFullHdr(2f)
+            })
+            FileOutputStream(source).use { output ->
+                assertTrue(base.compress(Bitmap.CompressFormat.JPEG, 92, output))
+            }
+        } finally {
+            base.recycle()
+            gainmapPixels.recycle()
+        }
+
+        assertTrue("The generated source must contain the gainmap APP1 marker", jpegHasMarker(source.readBytes(), 0xe1))
+        val decodedSource = requireNotNull(BitmapFactory.decodeFile(source.absolutePath))
+        val referencePixel: Int
+        try {
+            assertTrue("The generated JPEG must decode with its gainmap", decodedSource.hasGainmap())
+            assertFalse("An opaque HDR JPEG must exercise the previous direct-compress path", decodedSource.hasAlpha())
+            referencePixel = decodedSource.getPixel(decodedSource.width / 2, decodedSource.height / 2)
+        } finally {
+            decodedSource.recycle()
+        }
+
+        val imported = store.importSelected(Uri.fromFile(source))
+        val output = store.fileForDisplay(imported.ref)
+        val outputBytes = output.readBytes()
+        assertFalse("Normalized output must not contain APP1 metadata", jpegHasMarker(outputBytes, 0xe1))
+        assertEquals(2000, imported.width)
+        assertEquals(1500, imported.height)
+        assertTrue(imported.sizeBytes in 1..DiaryPhotoRules.MAX_STORED_BYTES)
+        assertEquals(output.length(), imported.sizeBytes)
+
+        val decodedOutput = requireNotNull(BitmapFactory.decodeByteArray(outputBytes, 0, outputBytes.size))
+        try {
+            assertFalse("Normalized output must not retain the gainmap", decodedOutput.hasGainmap())
+            assertFalse("Normalized JPEG output must be opaque", decodedOutput.hasAlpha())
+            assertEquals(imported.width, decodedOutput.width)
+            assertEquals(imported.height, decodedOutput.height)
+            val center = decodedOutput.getPixel(decodedOutput.width / 2, decodedOutput.height / 2)
+            assertEquals(Color.red(referencePixel).toDouble(), Color.red(center).toDouble(), 5.0)
+            assertEquals(Color.green(referencePixel).toDouble(), Color.green(center).toDouble(), 5.0)
+            assertEquals(Color.blue(referencePixel).toDouble(), Color.blue(center).toDouble(), 5.0)
+        } finally {
+            decodedOutput.recycle()
         }
     }
 
@@ -312,6 +375,25 @@ class AndroidPhotoStoreDeviceTest {
         bitmap.eraseColor(Color.rgb(70, 100, 160))
         FileOutputStream(file).use { output -> assertTrue(bitmap.compress(Bitmap.CompressFormat.JPEG, 92, output)) }
         bitmap.recycle()
+    }
+
+    private fun jpegHasMarker(bytes: ByteArray, expectedMarker: Int): Boolean {
+        if (bytes.size < 4 || bytes[0] != 0xff.toByte() || bytes[1] != 0xd8.toByte()) return false
+        var offset = 2
+        while (offset < bytes.size) {
+            if (bytes[offset++] != 0xff.toByte()) return false
+            while (offset < bytes.size && bytes[offset] == 0xff.toByte()) offset++
+            if (offset >= bytes.size) return false
+            val marker = bytes[offset++].toInt() and 0xff
+            if (marker == 0xda || marker == 0xd9) return false
+            if (marker == 0x01 || marker in 0xd0..0xd8) continue
+            if (offset + 2 > bytes.size) return false
+            val segmentLength = ((bytes[offset].toInt() and 0xff) shl 8) or (bytes[offset + 1].toInt() and 0xff)
+            if (segmentLength < 2 || offset + segmentLength > bytes.size) return false
+            if (marker == expectedMarker) return true
+            offset += segmentLength
+        }
+        return false
     }
 
     private class IsolatedFilesContext(base: Context, private val isolatedFiles: File) : ContextWrapper(base) {
